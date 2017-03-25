@@ -1,0 +1,39 @@
+#! /usr/bin/env node 
+
+var co = require('co');
+var prompt = require('co-prompt');
+var program = require('commander');
+
+program 
+	.usage('<command>')
+
+program
+  .version('0.0.1')
+
+program
+  .alias('add')
+  .description('Add a new template')
+  .option("-a, --add", "Add new template")
+  .action(() => {
+    require('../command/add')
+  })
+
+program
+  .alias('list') 
+  .description('List all templates')
+  .option("-l, --list", "List all templates")
+  .action(() =>{
+    require('../command/list')
+    console.log("he")
+  })
+
+// program
+//   .alias('init')
+// 	.description('Init a new template')
+// 	.option("-a, --init", "Init new template")
+//   .action(() => {
+//     require('../command/init')
+//   })
+	.parse(process.argv)
+
+
