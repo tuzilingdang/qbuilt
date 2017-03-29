@@ -3,6 +3,7 @@
 var co = require('co');
 var prompt = require('co-prompt');
 var program = require('commander');
+const config = require('../templates')
 
 program 
 	.usage('<command>')
@@ -11,7 +12,8 @@ program
   .version('0.0.1')
 
 program
-  .alias('add')
+  .command('add')
+  .alias('a')
   .description('Add a new template')
   .option("-a, --add", "Add new template")
   .action(() => {
@@ -19,21 +21,24 @@ program
   })
 
 program
-  .alias('list') 
+  .command('list')
+  .alias('l') 
   .description('List all templates')
   .option("-l, --list", "List all templates")
   .action(() =>{
-    require('../command/list')
-    console.log("he")
+    var list = require('../command/list.js');
+    list.print();
   })
 
-// program
-//   .alias('init')
-// 	.description('Init a new template')
-// 	.option("-a, --init", "Init new template")
-//   .action(() => {
-//     require('../command/init')
-//   })
-	.parse(process.argv)
+program
+.command('init')
+  .alias('init')
+	.description('Init a new project generated with the selected template')
+	.option("-a, --init", "Init a new project")
+  .action(() => {
+    require('../command/init.js')
+  })
+
+.parse(process.argv)
 
 

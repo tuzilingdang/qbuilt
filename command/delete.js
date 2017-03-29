@@ -20,10 +20,10 @@ module.export = () => {
 		fs.writeFile(__dirname + 'template.json', JSON.strignfy(config), 'utf-8', (err) => {
 			if(err)
 				console.log(err)
-			console.log(chalk.green('template deleted!'))
-			console.log(chalk.cyan('the last list is : \n!'))
-			console.log(config)
-			process.exit()
+				console.log(chalk.green('template deleted!'))
+				console.log(chalk.cyan('the last list is : \n!'))
+				console.log(config)
+				process.exit()
 		})
 	})
 } 

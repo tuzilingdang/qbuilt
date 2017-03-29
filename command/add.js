@@ -4,7 +4,7 @@ const prompt = require('co-prompt')
 // const config = require('../templates')
 const chalk = require('chalk')
 const fs = require('fs')
-var inTplData = {"tpl":{}}	//用户输入模板信息
+var inTplData = require('../templates')	//用户输入模板信息
 
 module.export = co(function *(){
 	var tplName = yield prompt('template name:')
@@ -26,7 +26,7 @@ module.export = co(function *(){
 
 	console.log(__dirname+ '/../templates.json')
 
-	fs.writeFile(__dirname + '/../templates.json', JSON.stringify(inTplData,), (err) => {
+	fs.writeFile(__dirname + '/../templates.json', JSON.stringify(inTplData), (err) => {
 		console.log("if err:" )
 		if (err) {
 			console.log(err)

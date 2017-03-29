@@ -1,8 +1,10 @@
 'use strict'
-const config = require('../templates')
+const chalk = require('chalk');
+const tplInfo = require('../templates');
 
-module.export = () => {
-	console.log("hello")
-	console.log(config.tpl)
-	prcess.exit()
+module.exports.print = () => {
+	for(var item in tplInfo.tpl){
+		console.log(chalk.magenta.bold(item));		
+	}
+	process.exit();	
 }

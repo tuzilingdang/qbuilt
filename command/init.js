@@ -1,38 +1,59 @@
 'use strict'
-const exec = require('child_process').exec
-const co = require('co')
-const prompt = require('co-prompt')
-const config = require('../templates')
-const chalk = require('chalk')
+const exec = require('child_process').exec;
+const co = require('co');
+const prompt = require('co-prompt');
+const tplInfo = require('../templates');
+const chalk = require('chalk');
 
-module.exports = () => {
- co(function *() {
-    // 处理用户输入
-      let tplName = yield prompt('Template name: ')
-      let projectName = yield prompt('Project name: ')
-      let gitUrl
-      let branch
+module.exports = co(function *(){ 
+     var projectInfo = {};
+     console.log(chalk.red.bgBlack.bold('      -       - '+" "+"     "));
+     console.log(chalk.white.bgBlack.bold('     | |     | | '+"     "));
+     console.log(chalk.blue.bgBlack.bold('     | |     | | '+"     "));
+     console.log(chalk.magenta.bgBlack.bold('     | |     | | '+"     "));
+     console.log(chalk.cyan.bgBlack.bold('     |  —————  | '+"     "));
+     console.log(chalk.green.bgBlack.bold('     | Ó     Ó | '+"     "));
+     console.log(chalk.gray.bgBlack.bold('     |    ı    | '+"     "));
+     console.log(chalk.red.bgBlack.bold('      ---------  '+"     "));
+     console.log(chalk.cyan.bgBlack.bold(' Welcome to Qbuilder!'+" ")+"\n");
 
-    if (!config.tpl[tplName]) {
-        console.log(chalk.red('\n × Template does not exit!'))
-        process.exit()
-    }
-    gitUrl = config.tpl[tplName].url
-    branch = config.tpl[tplName].branch
+     var tplName = yield prompt("template: ");
 
-    // git命令，远程拉取项目并自定义项目名
-    let cmdStr = `git clone ${gitUrl} ${projectName} && cd ${projectName} && git checkout ${branch}`
+     if(!tplInfo.tpl[tplName]){
+          console.log(chalk.red("The template does't exitst, try command \'qbuilder list\' for all templates information."));
+          process.exit();
+     }
+     else{
+          projectInfo.name = yield prompt("project name: ");
+          projectInfo.version = yield prompt("version: ");
+          projectInfo.author = yield prompt("auhtor: ");
+          projectInfo.description = yield prompt("description: ");
+          projectInfo.repository = yield prompt("repository: ");
+          var gitUrl = tplInfo.tpl[tplName].url;
+          var gitCmd = "git clone " + gitUrl ;
+          console.log(gitCmd);
+          console.log(chalk.yellow('\n Start generating...'));
+     }
 
-    console.log(chalk.white('\n Start generating...'))
+     var renameCmd = "mv " + tplName + " " + projectInfo.name;
 
-    exec(cmdStr, (error, stdout, stderr) => {
-      if (error) {
-        console.log(error)
-        process.exit()
-      }
-      console.log(chalk.green('\n √ Generation completed!'))
-      console.log(`\n cd ${projectName} && npm install \n`)
-      process.exit()
-    })
-  })
-}
+     yield exec(gitCmd, (error, stdout, stderr) => {
+          if (error) {
+            console.log(error);
+            process.exit();
+          }
+          console.log(`stdout: ${stdout}`);
+          console.log(`stderr: ${stderr}`);
+          exec(renameCmd, (error, stdout, stderr) => {
+                    if (error) {
+                      console.log(error);
+                      process.exit();
+                    }
+                    console.log(`${stdout}`);
+                    console.log(`${stderr}`);
+                    console.log(chalk.green('\n √ Project generated!'));
+                    process.exit();
+           });
+     });
+
+  });
