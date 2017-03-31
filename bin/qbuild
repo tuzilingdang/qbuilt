@@ -3,8 +3,6 @@
 var co = require('co');
 var prompt = require('co-prompt');
 var program = require('commander');
-const config = require('../templates')
-
 
 program
   .version('0.0.1')
@@ -35,6 +33,15 @@ program
 	.option("-i, --init", "Init a new project")
   .action(() => {
     require('../command/init.js')
+  })
+
+program
+  .command('delete')
+  .alias('d')
+  .description('Delete a template from templates list')
+  .option("-d, --delete", "Delete a template")
+  .action(() => {
+    require('../command/delete.js')
   })
 
 program

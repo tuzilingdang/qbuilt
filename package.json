@@ -1,5 +1,5 @@
 {
-  "name": "qbuiler",
+  "name": "qbuild",
   "version": "1.0.0",
   "description": "A tool for scaffolding frontend project.",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tuzilingdang/qbuiler.git"
+    "url": "git+https://github.com/tuzilingdang/qbuild.git"
   },
   "keywords": [
     "scaffold",
@@ -17,9 +17,9 @@
   "author": "April",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/tuzilingdang/qbuiler/issues"
+    "url": "https://github.com/tuzilingdang/qbuild/issues"
   },
-  "homepage": "https://github.com/tuzilingdang/qbuiler#readme",
+  "homepage": "https://github.com/tuzilingdang/qbuild#readme",
   "dependencies": {
     "chalk": "^1.1.3",
     "co": "^4.6.0",
@@ -28,7 +28,7 @@
     "fs": "0.0.1-security"
   },
   "bin": {
-    "qbuilder": "./bin/qbuilder",
+    "qbuild": "./bin/qbuild",
     "go": "./bin/go"
   }
 }

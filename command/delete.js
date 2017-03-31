@@ -1,29 +1,30 @@
 'use strict'
-const co = require('co')
-const prompt = require('co-prompt')
-const config = require('../templates')
-const chalk = ('chalk')
-const fs = require('fs')
+const co = require('co');
+const prompt = require('co-prompt');
+const tplInfo = require('../templates');
+const chalk = require('chalk');
+const fs = require('fs');
 
-module.export = () => {
-	co(function *() {
-		let tplName = yield prompt ('template name:')
+module.export =co(function *() {
+	var tplName = yield prompt ('Template name:');
 
-		if(config.tpl[tplName]){
-			config.tpl[tplName] = undefined
+	if(!tplInfo.tpl[tplName]){
+		console.log(chalk.red.bold('This template does\'nt exist.'));
+		process.exit();
+	}
+	else{
+		delete tplInfo.tpl[tplName];
+	}
+
+	fs.writeFile(__dirname + '/../templates.json', JSON.stringify(tplInfo), (err) => {
+	console.log(__dirname+ '/../templates.json');		
+		if(err){
+			console.log(chalk.red(err));
+			process.exit();
 		}
-		else{
-			console.log(chalk.red('template does not exist'))
-			process.exit()
-		}
-
-		fs.writeFile(__dirname + 'template.json', JSON.strignfy(config), 'utf-8', (err) => {
-			if(err)
-				console.log(err)
-				console.log(chalk.green('template deleted!'))
-				console.log(chalk.cyan('the last list is : \n!'))
-				console.log(config)
-				process.exit()
-		})
+		console.log(chalk.green.bold('Template had been deleted!'));
+		process.exit();
 	})
-} 
+
+});
+
