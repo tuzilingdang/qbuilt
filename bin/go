@@ -5,8 +5,6 @@ var prompt = require('co-prompt');
 var program = require('commander');
 const config = require('../templates')
 
-program 
-	.usage('<command>')
 
 program
   .version('0.0.1')
@@ -31,14 +29,15 @@ program
   })
 
 program
-.command('init')
-  .alias('init')
+  .command('init')
+  .alias('i')
 	.description('Init a new project generated with the selected template')
-	.option("-a, --init", "Init a new project")
+	.option("-i, --init", "Init a new project")
   .action(() => {
     require('../command/init.js')
   })
 
-.parse(process.argv)
+program
+  .parse(process.argv)
 
 

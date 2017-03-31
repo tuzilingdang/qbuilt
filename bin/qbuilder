@@ -1,54 +1,42 @@
-#! /usr/bin/env node  --harmony
+#! /usr/bin/env node 
 
-'use strict'
-
-process.env.NODE_PATH = __dirname + '../node_modules'
-
-const program = require('commander')
-
-
-program 
-	.version(require('../package').version)
-
-program 
-	.usage('<command>')
+var co = require('co');
+var prompt = require('co-prompt');
+var program = require('commander');
+const config = require('../templates')
 
 program
-	.command("add")
-	.description('Add new template')
-	.alias('a')
-	.action(()=>{
-		require('../command/add')
-	})
+  .version('0.0.1')
 
 program
-	.command("list")
-	.description('list all templates')
-	.alias('l')
-	.action((() =>{
-		require('../command/list')
-	}))
+  .command('add')
+  .alias('a')
+  .description('Add a new template')
+  .option("-a, --add", "Add new template")
+  .action(() => {
+    require('../command/add')
+  })
 
 program
-	.command('init')
-	.description('generate new project')
-	.alias('i')
-	.alias(()=>{
-		require('../command/init')()
-	})
+  .command('list')
+  .alias('l') 
+  .description('List all templates')
+  .option("-l, --list", "List all templates")
+  .action(() =>{
+    var list = require('../command/list.js');
+    list.print();
+  })
 
 program
-	.command('delete')
-	.description('delete template')
-	.alias('i')
-	.alias(()=>{
-		require('../command/delete')
-	})
+  .command('init')
+  .alias('i')
+	.description('Init a new project generated with the selected template')
+	.option("-i, --init", "Init a new project")
+  .action(() => {
+    require('../command/init.js')
+  })
 
-program.parse(process.argv)
-
-if(!program.args.length){
-	program.help()
-}
+program
+  .parse(process.argv)
 
 
