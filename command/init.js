@@ -15,12 +15,12 @@ module.exports = co(function *(){
      console.log(chalk.green.bgBlack.bold('     | Ó     Ó | '+"     "));
      console.log(chalk.gray.bgBlack.bold('     |    ı    | '+"     "));
      console.log(chalk.red.bgBlack.bold('      ---------  '+"     "));
-     console.log(chalk.cyan.bgBlack.bold(' Welcome to Qbuild!'+" ")+"\n");
+     console.log(chalk.cyan.bgBlack.bold(' Welcome to Qbuilt!'+"   ")+"\n");
 
      var tplName = yield prompt(chalk.green.bold("Input the template name you want to use: "));
 
      if(!tplInfo.tpl[tplName]){
-          console.log(chalk.red("The template does't exitst, try command \'qbuild list\' for all templates information."));
+          console.log(chalk.red("The template does't exitst, try command \'qbuilt list\' for all templates information."));
           process.exit();
      }
      else{

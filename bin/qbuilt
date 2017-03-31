@@ -5,7 +5,7 @@ var prompt = require('co-prompt');
 var program = require('commander');
 
 program
-  .version('0.0.1')
+  .version('0.0.5')
 
 program
   .command('add')

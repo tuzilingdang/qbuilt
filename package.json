@@ -1,6 +1,6 @@
 {
-  "name": "qbuild",
-  "version": "1.0.0",
+  "name": "qbuilt",
+  "version": "0.0.5",
   "description": "A tool for scaffolding frontend project.",
   "main": "index.js",
   "scripts": {
@@ -28,7 +28,6 @@
     "fs": "0.0.1-security"
   },
   "bin": {
-    "qbuild": "./bin/qbuild",
-    "go": "./bin/go"
+    // "qbuilt": "./bin/qbuilt"
   }
 }
